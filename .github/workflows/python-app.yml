@@ -34,7 +34,7 @@ jobs:
         cd code
         pytest
   deploy:
-    depends-on: build
+    needs: [ build ]
     runs-on: ubuntu-latest
 
     steps:
