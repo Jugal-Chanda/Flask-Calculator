@@ -27,6 +27,10 @@ def multiply():
 def divide():
     return operation('divide')
 
+@app.route('/api/square', methods=['POST'])
+def square():
+    return request.json.get('x') ** 2
+
 
 def operation(method):
     factors = []
