@@ -1,6 +1,6 @@
 class Calculator:
     def add(self,x, y):
-        result =  x + y + 2
+        result =  x + y
         return round(result, 2)
 
     def subtract(self,x, y):
