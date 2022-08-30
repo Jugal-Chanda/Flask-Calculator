@@ -31,6 +31,10 @@ def divide():
 def square():
     return request.json.get('x') ** 2
 
+@app.route('/api/cube', methods=['POST'])
+def square():
+    return request.json.get('x') ** 3
+
 
 def operation(method):
     factors = []
