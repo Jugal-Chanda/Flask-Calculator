@@ -1,1 +1,1 @@
-(cicd) bs753@bs753:~/Downloads/CI_CD/Flask-Calculator$ sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower python_cicd
+sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower python_cicd
