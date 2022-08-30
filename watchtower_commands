@@ -2,4 +2,4 @@ sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.soc
 
 webhook -hooks /home/bs753/Downloads/CI_CD/hooks/hooks.json -verbose
 
-test
+test2
