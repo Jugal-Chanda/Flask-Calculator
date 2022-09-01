@@ -44,10 +44,9 @@ jobs:
         HOSTNAME : ${{ secrets.HOSTNAME  }}
         USER_NAME : ${{ secrets.USERNAME  }}
       run: |
-        echo "$PRIVATE_KEY" > /tmp/key
-        chmod 600 /tmp/key
-        ssh -i /tmp/key $USER_NAME@$HOSTNAME
-        ls -la
+        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+        ssh -i private_key $USER_NAME@$HOSTNAME "
+          ls -la"
 
 
 
