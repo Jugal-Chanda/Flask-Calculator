@@ -38,16 +38,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
     - name: deploy on ec2
       env:
         PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY  }}
         HOSTNAME : ${{ secrets.HOSTNAME  }}
         USER_NAME : ${{ secrets.USERNAME  }}
       run: |
+        ls -la
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key $USER_NAME@$HOSTNAME "
-          touch test.txt
-          echo Hello World > test.txt"
+        cd /home/$USER_NAME/
+        touch test.txt
+        echo 'test' > test.txt
+        "
 
 
 
