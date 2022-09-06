@@ -55,10 +55,9 @@ jobs:
     needs: [ push_docker ]
     runs-on: ubuntu-latest
     steps:
-    -name: Download artifact
-     uses: actions/download-artifact@v3
-     with:
-       name: python_cicd
+    - uses: actions/download-artifact@v3
+      with:
+        name: python_cicd
     - name: Display structure of downloaded files
       run: ls -R
       working-directory: path/to/artifact
