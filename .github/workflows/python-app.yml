@@ -51,20 +51,14 @@ jobs:
       with:
         name: python_cicd
         path: /tmp/docker/python_cicd.tar.gz
-  # deploy:
-  #   needs: [ push_docker ]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: deploy on ec2
-  #     env:
-  #       PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY  }}
-  #       HOSTNAME : ${{ secrets.HOSTNAME  }}
-  #       USER_NAME : ${{ secrets.USERNAME  }}
-  #     run: |
-  #       ls -la
-  #       echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-  #       ssh -o StrictHostKeyChecking=no -i private_key $USER_NAME@$HOSTNAME "
-  #       docker stop python_cicd || true && docker rm python_cicd || true && docker rmi jugalchanda7/python_cicd:latest || true
-  #       docker pull jugalchanda7/python_cicd:latest
-  #       docker run -d --name python_cicd -p 5000:8080 jugalchanda7/python_cicd:latest
-  #       "
+  deploy:
+    needs: [ push_docker ]
+    runs-on: ubuntu-latest
+    steps:
+    -name: Download artifact
+     uses: actions/download-artifact@v3
+     with:
+       name: python_cicd
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: path/to/artifact
