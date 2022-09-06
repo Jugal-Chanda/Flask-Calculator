@@ -29,11 +29,11 @@ def divide():
 
 @app.route('/api/square', methods=['POST'])
 def square():
-    return request.json.get('x') ** 2
+    return str(request.json.get('x') ** 2)
 
 @app.route('/api/cube', methods=['POST'])
 def cube():
-    return request.json.get('x') ** 3
+    return str(request.json.get('x') ** 3)
 
 
 def operation(method):
