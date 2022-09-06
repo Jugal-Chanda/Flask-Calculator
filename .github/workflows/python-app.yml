@@ -41,6 +41,16 @@ jobs:
     - name: Build Docker image
       run: |
         docker build -t python_cicd .
+    - name: export image
+      run: |
+        mkdir -p /tmp/docker
+        docker save python_cicd:latest | gzip > python_cicd.tar.gz
+        mv python_cicd.tar.gz /tmp/docker
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: python_cicd
+        path: /tmp/docker/python_cicd.tar.gz
   # deploy:
   #   needs: [ push_docker ]
   #   runs-on: ubuntu-latest
