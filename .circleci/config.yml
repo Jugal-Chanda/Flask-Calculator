@@ -26,4 +26,8 @@ workflows:
       - build
       - python/test:
           app-dir: code
-          pip-dependency-file: .docker/python/requirements.txt
+          pre-install-steps:
+            - run:
+                name: Change Directory
+                command: |
+                  cd .docker/python
