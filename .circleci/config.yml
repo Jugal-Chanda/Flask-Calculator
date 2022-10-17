@@ -25,7 +25,38 @@ jobs:
           command: |
             cd code
             pytest
+  # push docker hub with circleCi
+  push_docker:
+    docker:
+      - image: cimg/python:3.10.7
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Check Directory
+          command: |
+            pwd
+            ls -lh
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Login to DockerHub
+          command: |
+            echo $DOCKERHUB_ACCESS_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
+      - run:
+          name: Build and push
+          command: |
+            docker build -t jugalchanda7/python_cicd:latest .
+            docker push jugalchanda7/python_cicd:latest
+      - run:
+          name: check docker images
+          command: |
+            docker images
+            docker ps -a
 workflows:
   CI-Pipeline:
     jobs:
       - build
+      - push_docker:
+          requires:
+            - build
