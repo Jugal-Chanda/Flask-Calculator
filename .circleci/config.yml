@@ -19,6 +19,7 @@ jobs:
                 name: Install dependencies
                 command: |
                   python -m pip install --upgrade pip
+      -
 
 workflows:
   main:
@@ -31,3 +32,5 @@ workflows:
                 name: Change Directory
                 command: |
                   cp .docker/python/requirements.txt code
+      - store_test_results:
+          path: test-report
