@@ -19,6 +19,13 @@ jobs:
                 name: Install dependencies
                 command: |
                   python -m pip install --upgrade pip
+      run:
+        name: Test with pytest
+        command: |
+          cd code
+          pytest --xml=report.xml
+          pwd
+          ls -lh
       -
 
 workflows:
@@ -32,5 +39,3 @@ workflows:
                 name: Change Directory
                 command: |
                   cp .docker/python/requirements.txt code
-      - store_test_results:
-          path: test-report
