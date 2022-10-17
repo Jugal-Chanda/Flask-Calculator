@@ -26,7 +26,6 @@ jobs:
           pytest --xml=report.xml
           pwd
           ls -lh
-      -
 
 workflows:
   main:
