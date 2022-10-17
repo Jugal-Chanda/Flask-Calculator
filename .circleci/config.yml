@@ -30,6 +30,4 @@ workflows:
             - run:
                 name: Change Directory
                 command: |
-                  pwd
-                  ls -lh
-                  cd .docker/python
+                  cp -r .docker/python/* .
