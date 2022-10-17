@@ -23,7 +23,7 @@ jobs:
           name: Test with pytest
           command: |
             cd code
-            pytest --junitxml=test-results/junit.xml
+            pytest --junitxml=test-results/report.xml
             pwd
             ls -lh
       - store_test_results:
