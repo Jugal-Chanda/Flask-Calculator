@@ -30,4 +30,4 @@ workflows:
             - run:
                 name: Change Directory
                 command: |
-                  cp -r .docker/python/* .
+                  cp .docker/python/* ../
