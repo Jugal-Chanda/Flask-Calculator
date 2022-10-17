@@ -11,6 +11,13 @@ jobs:
           command: |
             pwd
             ls -lh
+      - python/install-packages:
+          pkg-manager: pip
+          pre-install: |
+            cd .docker/python
+            python -m pip install --upgrade pip
+            pip install flake8 pytest
+            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 workflows:
   main:
     jobs:
