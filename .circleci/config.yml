@@ -11,9 +11,20 @@ jobs:
       - run:
           name: Check Directory
           command: |
-            cd .docker/python
             pwd
             ls -lh
+      - run:
+          name: Install dependencies
+          command: |
+            cd .docker/python
+            python -m pip install --upgrade pip
+            pip install flake8 pytest
+            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - run:
+          name: Test with pytest
+          command: |
+            cd code
+            pytest
 workflows:
   CI-Pipeline:
     jobs:
