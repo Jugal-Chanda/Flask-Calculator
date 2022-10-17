@@ -12,13 +12,13 @@ jobs:
             pwd
             ls -lh
       - python/install-packages:
+          app-dir: .docker/python
           pkg-manager: pip
           pre-install-steps:
             - run:
                 name: Install dependencies
                 command: |
                   python -m pip install --upgrade pip
-                  cp .docker/python/requirements.txt .
 
 workflows:
   main:
