@@ -26,6 +26,8 @@ jobs:
             pytest --junitxml=test-results/junit.xml
             pwd
             ls -lh
+      - store_test_results:
+          path: test-results
 
 workflows:
   main:
