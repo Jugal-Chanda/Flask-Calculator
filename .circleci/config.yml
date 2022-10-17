@@ -19,7 +19,6 @@ jobs:
                 command: |
                   python -m pip install --upgrade pip
                   cp .docker/python/requirements.txt .
-          pip-dependency-file: .docker/python/requirements.txt
 
 workflows:
   main:
