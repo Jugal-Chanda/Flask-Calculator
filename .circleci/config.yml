@@ -1,4 +1,4 @@
-version: "2.1"
+version: 2.1
 orbs:
   python: circleci/python@2.1.1
 jobs:
@@ -19,10 +19,11 @@ jobs:
                 name: Install dependencies
                 command: |
                   python -m pip install --upgrade pip
-      - python/test:
-          app-dir: code
 
 workflows:
   main:
     jobs:
       - build
+      - python/test:
+          app-dir: code
+          pip-dependency-file: .docker/python/requirements.txt
