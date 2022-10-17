@@ -17,8 +17,9 @@ jobs:
             - run:
                 name: Install dependencies
                 command: |
-                  cd .docker/python
                   python -m pip install --upgrade pip
+          pip-dependency-file: .docker/python/requirements.txt
+
 workflows:
   main:
     jobs:
