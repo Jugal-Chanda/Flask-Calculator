@@ -1,0 +1,42 @@
+version: 2.1
+orbs:
+  python: circleci/python@2.1.1
+jobs:
+  build:
+    executor: python/default
+    steps:
+      - checkout
+      - run:
+          name: Check Directory
+          command: |
+            pwd
+            ls -lh
+      - python/install-packages:
+          app-dir: .docker/python
+          pkg-manager: pip
+          pre-install-steps:
+            - run:
+                name: Install dependencies
+                command: |
+                  python -m pip install --upgrade pip
+      - run:
+          name: Test with pytest
+          command: |
+            cd code
+            pytest --junitxml=test-results/report.xml
+            pwd
+            ls -lh
+      - store_test_results:
+          path: test-results
+
+workflows:
+  main:
+    jobs:
+      - build
+      - python/test:
+          app-dir: code
+          pre-install-steps:
+            - run:
+                name: Change Directory
+                command: |
+                  cp .docker/python/requirements.txt code
