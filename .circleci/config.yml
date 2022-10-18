@@ -1,64 +1,42 @@
 version: 2.1
-
+orbs:
+  python: circleci/python@2.1.1
 jobs:
   build:
-    docker:
-      - image: cimg/python:3.10.7
-    working_directory: ~/repo
+    executor: python/default
     steps:
       - checkout
-      - run: python --version
       - run:
           name: Check Directory
           command: |
             pwd
             ls -lh
-      - run:
-          name: Install dependencies
-          command: |
-            cd .docker/python
-            python -m pip install --upgrade pip
-            pip install flake8 pytest
-            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - python/install-packages:
+          app-dir: .docker/python
+          pkg-manager: pip
+          pre-install-steps:
+            - run:
+                name: Install dependencies
+                command: |
+                  python -m pip install --upgrade pip
       - run:
           name: Test with pytest
           command: |
             cd code
-            pytest
-  # push docker hub with circleCi
-  push_docker:
-    docker:
-      - image: cimg/python:3.10.7
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run:
-          name: Check Directory
-          command: |
+            pytest --junitxml=test-results/report.xml
             pwd
             ls -lh
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: Login to DockerHub
-          command: |
-            echo $DOCKERHUB_ACCESS_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
-      - run:
-          name: Build and push
-          command: |
-            docker build -t jugalchanda7/python_cicd:latest .
-            docker push jugalchanda7/python_cicd:latest
-      - run:
-          name: check docker images
-          command: |
-            docker images
-            docker ps -a
+      - store_test_results:
+          path: test-results
+
 workflows:
-  CI-Pipeline:
+  main:
     jobs:
       - build
-      - Hold-for-Approval:
-          type: approval
-      - push_docker:
-          requires:
-            - Hold-for-Approval
+      - python/test:
+          app-dir: code
+          pre-install-steps:
+            - run:
+                name: Change Directory
+                command: |
+                  cp .docker/python/requirements.txt code
