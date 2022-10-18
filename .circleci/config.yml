@@ -59,9 +59,6 @@ workflows:
       - build
       - Hold-for-Approval:
           type: approval
-          requires:
-            - Using-Node
-            - Fetch-Code
       - push_docker:
           requires:
             - Hold-for-Approval
