@@ -57,6 +57,11 @@ workflows:
   CI-Pipeline:
     jobs:
       - build
+      - Hold-for-Approval:
+          type: approval
+          requires:
+            - Using-Node
+            - Fetch-Code
       - push_docker:
           requires:
-            - build
+            - Hold-for-Approval
