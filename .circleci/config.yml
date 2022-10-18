@@ -59,4 +59,4 @@ workflows:
       - build
       - push_docker:
           requires:
-            - Hold-for-Approval
+            - build
